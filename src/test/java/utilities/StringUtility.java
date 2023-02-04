@@ -1,4 +1,4 @@
-package com.cbt.utilities;
+package utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
