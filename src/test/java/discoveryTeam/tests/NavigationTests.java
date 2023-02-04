@@ -1,7 +1,6 @@
-package tests;
+package discoveryTeam.tests;
 
-import utilities.BrowserFactory;
-import utilities.StringUtility;
+import discoveryTeam.utilities.BrowserFactory;
 import org.openqa.selenium.WebDriver;
 
 public class NavigationTests {
