@@ -16,10 +16,12 @@ public class WriteExcel {
         String path = "/Users/mustafacetinkaya/IdeaProjects/BasicNavigationTests/src/test/resources/EU10-Group-7_Tracking Sheet_SAMPLE.xlsx"; //Java can open the Excel files but can not read. File do not has to be in the resource folder, it can read from directly computer as well.
 
         FileInputStream file = new FileInputStream(path);//For opening
-        FileOutputStream fileOutputStream = new FileOutputStream(path);//For reading after saving
 
         //Read the Excel file
         Workbook excel = WorkbookFactory.create(file);
+
+        FileOutputStream fileOutputStream = new FileOutputStream(path);//For reading after saving
+
 
         //Select sheet that will be written
         Sheet sheet = excel.getSheetAt(0);   //First sheet's index is 0.
