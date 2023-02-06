@@ -1,5 +1,6 @@
 package discoveryTeam.excelAutomation;
 
+import discoveryTeam.utilities.ReusableMethods;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
@@ -20,7 +21,7 @@ public class WriteExcel {
         //Read the Excel file
         Workbook excel = WorkbookFactory.create(file);
 
-        FileOutputStream fileOutputStream = new FileOutputStream(path);//For reading after saving
+        FileOutputStream fileOutputStream = new FileOutputStream(path);//For reading after saving. Order is important. Firstly open, then read, lastly show result
 
 
         //Select sheet that will be written
@@ -29,6 +30,14 @@ public class WriteExcel {
         //Select cell (column) and row that will be written
         sheet.getRow(0).getCell(1).setCellValue("CYDEOTEAM");   //First row's index is 0.
         excel.write(fileOutputStream);
+
+        //Last row index
+        int lastRow=sheet.getLastRowNum();
+
+        for (int i = 0; i < 21; i++) {
+            sheet.getRow(lastRow-5).getCell(i).setCellValue(i+"");   //First row's index is 0.
+            excel.write(fileOutputStream);
+        }
 
 
         file.close();
