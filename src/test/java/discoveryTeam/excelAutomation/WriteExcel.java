@@ -39,7 +39,6 @@ public class WriteExcel {
             excel.write(fileOutputStream);
         }
 
-
         file.close();
         excel.close();
     }
