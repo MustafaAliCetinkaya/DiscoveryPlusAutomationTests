@@ -47,7 +47,7 @@ public class HepsiBuradaTestAutomation_UI {
         Assert.assertTrue(pageObject.continueSignupButton.isEnabled());
         pageObject.continueSignupButton.click();
     }
-    @Test(dependsOnMethods = "signup")
+    @Test//(dependsOnMethods = "signup")
     public void lastViewedItems(){
 
         //Verify the home page title
