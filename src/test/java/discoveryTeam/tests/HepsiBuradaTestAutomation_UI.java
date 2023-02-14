@@ -46,6 +46,8 @@ public class HepsiBuradaTestAutomation_UI {
         //Click on the continue button after verifying whether it is enabled or not
         Assert.assertTrue(pageObject.continueSignupButton.isEnabled());
         pageObject.continueSignupButton.click();
+
+        Driver.closeDriver();
     }
     @Test//(dependsOnMethods = "signup")
     public void lastViewedItems(){
@@ -69,6 +71,6 @@ public class HepsiBuradaTestAutomation_UI {
         //Click on the login button
         pageObject.loginButton.click();
 
-
+        Driver.closeDriver();
     }
 }
