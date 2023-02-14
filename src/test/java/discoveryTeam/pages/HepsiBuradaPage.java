@@ -23,6 +23,8 @@ public class HepsiBuradaPage {
     public WebElement continueSignupButton;
     @FindBy(css = "button#btnLogin")
     public WebElement loginButton;
+    @FindBy(css = "div.hb-fznKot.uteQh.siaol1zwfmt")
+    public WebElement errorMessage;
     @FindBy(xpath = "//span[contains(text(),'Giriş Yap')]")
     public WebElement homaPageLoginDropdown;
     @FindBy(xpath = "//div[contains(text(),'Üye ol')]")
