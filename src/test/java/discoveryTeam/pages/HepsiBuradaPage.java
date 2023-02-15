@@ -66,13 +66,15 @@ public class HepsiBuradaPage {
             Driver.getDriver().navigate().back();
             Driver.getDriver().navigate().refresh();
 
+            ReusableMethods.waitFor(2);
         }
     }
 
     public void verifyLastViewedItems(){
+        System.out.println("All viewed items: "+viewedItemsList);
         for (WebElement eachViewedItem : lastViewedItems) {
             if(viewedItemsList.contains(eachViewedItem.getText())){
-                System.out.println("Last view item is seen at the cart recommendation list");
+                System.out.println("Last view item is seen at the cart recommendation list: "+eachViewedItem.getText());
             }
         }
     }
