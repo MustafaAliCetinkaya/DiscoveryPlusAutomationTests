@@ -1,41 +1,44 @@
 package discoveryTeam.utilities;
+
+import com.github.javafaker.Faker;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.*;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class ReusableMethods {
 
-    public static void verifyPageTitle(WebDriver driver,String expectedTitle){
-        String actualTitle = driver.getTitle();
+    public static void verifyPageTitle(String expectedTitle){
+        String actualTitle = Driver.getDriver().getTitle();
         Assert.assertEquals(actualTitle,expectedTitle, "This is a failure message. Title is not matching!");
     }
 
-    public static void verifyPageUrl(WebDriver driver,String expectedUrl){
-        String actualUrl = driver.getCurrentUrl();
+    public static void verifyPageUrl(String expectedUrl){
+        String actualUrl = Driver.getDriver().getCurrentUrl();
         Assert.assertEquals(actualUrl,expectedUrl, "This is a failure message. URL is not matching!");
     }
 
     //========Switching Window=====//
-    public static void switchToWindows(WebDriver driver){
-        Set<String> AllHandles=driver.getWindowHandles();
+    public static void switchToWindows(){
+        Set<String> AllHandles=Driver.getDriver().getWindowHandles();
         for (String eachHandle : AllHandles) {
             System.out.println("Each Handle = " + eachHandle);
-            driver.switchTo().window(eachHandle);
-            System.out.println("Current title while switching windows: " + driver.getTitle());
+            Driver.getDriver().switchTo().window(eachHandle);
+            System.out.println("Current title while switching windows: " + Driver.getDriver().getTitle());
         }
     }
 
     //========Hover Over=====//
-    public static void hover(WebDriver driver,WebElement element) {
-        Actions actions = new Actions(driver);
+    public static void hover(WebElement element) {
+        Actions actions = new Actions(Driver.getDriver());
         actions.moveToElement(element).perform();
     }
 
@@ -169,5 +172,179 @@ public class ReusableMethods {
         return temp;
 
     }
+
+    //====== js ======//
+    public static void jsClick(WebElement webElement){
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].click();", webElement);
+        try {
+            webElement.click();
+        } catch (Exception e) {
+            JavascriptExecutor executor = (JavascriptExecutor) Driver.getDriver();
+            executor.executeScript("arguments[0].click();", webElement);
+        }
+    }
+
+    public static void visibilityOfWait(WebElement webElement) {
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+        wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
+
+    public static Actions getActions() {
+
+        Actions actions;
+        return actions = new Actions(Driver.getDriver());
+    }
+
+
+    public static Select select(WebElement ddm) {
+
+        Select select;
+        return select = new Select(ddm);
+    }
+
+    public static Random random() { //
+
+        Random random;
+        return random = new Random();
+    }
+
+    //Auto date select
+    public static void selectDropDown(WebElement element){
+
+        List<WebElement> list = ReusableMethods.select(element).getOptions();
+        int index = ReusableMethods.random().nextInt(list.size());
+        while (index == 0){
+            index = ReusableMethods.random().nextInt(list.size());
+        }
+        ReusableMethods.select(element).selectByIndex(index);
+    }
+
+
+    public static void selectDdmIndex(WebElement element) {
+
+        List<WebElement> list = select(element).getOptions();
+
+        int index = random().nextInt(list.size());
+
+        select(element).selectByIndex(index);
+    }
+
+    public static String dateMonth() {
+
+        String month;
+        LocalDateTime dateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM");
+        return month = dateTime.format(formatter);
+    }
+
+    public static String dateYear() {
+
+        String year;
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy");
+        return year = localDateTime.format(formatter);
+
+    }
+
+
+    //===============Explicit Wait==============//
+    public static WebElement waitForVisibility(int timeout, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(),  timeout);
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    public static WebElement waitForVisibility(int timeout,By locator) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public static WebElement waitForClickablility(int timeout, WebElement element) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        return wait.until(ExpectedConditions.elementToBeClickable(element));
+    }
+
+    public static WebElement waitForClickablility(int timeout,By locator) {
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+        return wait.until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+
+    public static void waitForPageToLoad(long timeout) {
+        ExpectedCondition<Boolean> expectation = new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
+            }
+        };
+        try {
+            System.out.println("Waiting for page to load...");
+            WebDriverWait wait = new WebDriverWait(Driver.getDriver(), timeout);
+            wait.until(expectation);
+        } catch (Throwable error) {
+            System.out.println(
+                    "Timeout waiting for Page Load Request to complete after " + timeout + " seconds");
+        }
+    }
+
+
+    //====== JS Scroll Click ====//
+    public static void jsScrollClick(WebElement webElement) {
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        try {
+            webElement.click();
+        } catch (Exception e) {
+            js.executeScript("arguments[0].scrollIntoView(true);", webElement);
+            js.executeScript("arguments[0].click()", webElement);
+            waitFor(1);
+        }
+    }
+
+    //====== JS Scroll ====//
+    public static void jsScroll(WebElement webElement) {
+
+        JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+        js.executeScript("arguments[0].scrollIntoView(true);", webElement);
+    }
+
+
+    public static Faker getFaker() {
+
+        Faker faker;
+        return faker = new Faker();
+    }
+
+    public static String getScreenshot(String name) throws IOException {
+        // naming the screenshot with the current date to avoid duplication
+        String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        // TakesScreenshot is an interface of selenium that takes the screenshot
+        TakesScreenshot ts = (TakesScreenshot) Driver.getDriver();
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        // full path to the screenshot location
+        String target = System.getProperty("user.dir") + "/target/Screenshots/" + name + date + ".png";
+        File finalDestination = new File(target);
+        // save the screenshot to the path given
+        FileUtils.copyFile(source, finalDestination);
+        return target;
+    }
+
+
+    //========ScreenShot Web Element(Bir webelementin resmini alma)=====//
+    public static String getScreenshotWebElement(String name, WebElement element) throws IOException {
+        String date = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+
+        // TakesScreenshot, ekran görüntüsünü alan bir selenyum arayüzüdür.
+        File source = element.getScreenshotAs(OutputType.FILE);
+
+        // ekran görüntüsü konumunun tam yolu
+        String wElementSS = System.getProperty("user.dir") + "target/generated-test-sources" + name + date + ".png";
+        File finalDestination = new File(wElementSS);
+
+        // ekran görüntüsünü verilen yola kaydedin
+        FileUtils.copyFile(source, finalDestination);
+        return wElementSS;
+    }
+
 
 }
