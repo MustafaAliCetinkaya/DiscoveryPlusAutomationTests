@@ -26,12 +26,20 @@ public class HepsiBuradaPage {
     public WebElement emailBox;
     @FindBy(css = "input#txtEmail")
     public WebElement emailSignupBox;
+    @FindBy(css = "input#txtUserName")
+    public WebElement enterEmailBox;
     @FindBy(css = "button#btnSignUpSubmit")
     public WebElement continueSignupButton;
     @FindBy(css = "button#btnLogin")
     public WebElement loginButton;
+    @FindBy(css = "button#txtPassword")
+    public WebElement passwordBox;
+    @FindBy(css = "button#btnEmailSelect")
+    public WebElement submitPasswordBox;
     @FindBy(css = "span#shoppingCart")
     public WebElement shoppingCartButton;
+    @FindBy(css = "span.sf-OldMyAccount-sS_G2sunmDtZl9Tld5PR")
+    public WebElement usernameText;
     @FindBy(xpath = "//div[contains(text(),'Bu e-posta adresine ait bir hesabınız')]")
     public WebElement errorMessage;
     @FindBy(xpath = "//span[contains(text(),'Giriş Yap')]")

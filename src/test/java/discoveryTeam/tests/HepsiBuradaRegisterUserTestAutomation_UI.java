@@ -18,7 +18,6 @@ public class HepsiBuradaRegisterUserTestAutomation_UI {
         Driver.getDriver().get(ConfigurationReader.getProperty("hepsiburada"));
 
         //If it exists, accept all cookies
-
         if( pageObject.acceptCookies.isDisplayed() ){
             pageObject.acceptCookies.click();
         }
@@ -40,12 +39,21 @@ public class HepsiBuradaRegisterUserTestAutomation_UI {
         BrowserUtils.verifyTitle("Üye Giriş Sayfası & Üye Ol - Hepsiburada");
 
         //Write your email address in order to login
-        pageObject.signupButton.click();
-        pageObject.emailSignupBox.sendKeys(ConfigurationReader.getProperty("email"));
+        pageObject.enterEmailBox.sendKeys(ConfigurationReader.getProperty("email"));
 
-        //Click on the continue button after verifying whether it is enabled or not
-        Assert.assertTrue(pageObject.continueSignupButton.isEnabled());
-        pageObject.continueSignupButton.click();
+        //Click on the continue button
+        pageObject.loginButton.click();
+
+        //Write your password to the related box
+        pageObject.passwordBox.sendKeys(ConfigurationReader.getProperty("pass"));
+
+        //Click on the continue button
+        pageObject.submitPasswordBox.click();
+
+        //Verify username visibility and check the username text is true or not
+        Assert.assertTrue(pageObject.usernameText.isDisplayed());
+        String expectedUsername="Hayu QA";
+        Assert.assertEquals(pageObject.usernameText.getText(),expectedUsername);
 
         Driver.closeDriver();
     }
