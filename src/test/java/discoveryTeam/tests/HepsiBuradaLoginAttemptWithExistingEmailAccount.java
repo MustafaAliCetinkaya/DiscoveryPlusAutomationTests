@@ -47,8 +47,9 @@ public class HepsiBuradaLoginAttemptWithExistingEmailAccount {
         Assert.assertTrue(pageObject.continueSignupButton.isEnabled());
         pageObject.continueSignupButton.click();
 
-        //Verify the error message
+        //Verify the error message ("Bu e-posta adresine ait bir hesabınız olduğunu fark ettik.")
         Assert.assertTrue(pageObject.errorMessage.isDisplayed());
+        Assert.assertEquals(pageObject.errorMessage.getText(),"Bu e-posta adresine ait bir hesabınız olduğunu fark ettik.");
 
         Driver.closeDriver();
     }
