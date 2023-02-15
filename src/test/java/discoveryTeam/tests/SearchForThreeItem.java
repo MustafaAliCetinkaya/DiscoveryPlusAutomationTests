@@ -29,5 +29,10 @@ HepsiBuradaPage pageObject;
 
         //Click on the cart button
         pageObject.shoppingCartButton.click();
+
+        //Verify that last view items are placed at the cart as recommendation list
+        pageObject.verifyLastViewedItems();
+
+        Driver.closeDriver();
     }
 }

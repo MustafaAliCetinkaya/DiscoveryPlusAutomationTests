@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -40,6 +41,10 @@ public class HepsiBuradaPage {
 
     @FindAll(@FindBy(css = "div[data-test-id=\"product-info-wrapper\"] h3"))
     public List<WebElement> allItemsOnTheHomePage;
+    @FindAll(@FindBy(css = "div.sf-voltran-body.voltran-body.Recommendation_0 h3"))
+    public List<WebElement> lastViewedItems;
+
+    List<String>viewedItemsList=new ArrayList<>();
 
     public void navigateAnyItemWithGivenQuantity(int ItemQuantity){
         Random random=new Random();
@@ -47,11 +52,12 @@ public class HepsiBuradaPage {
         for (int i = 0; i < ItemQuantity; i++) {
             ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(index));
             String itemHeader=allItemsOnTheHomePage.get(index).getText();
+            viewedItemsList.add(itemHeader);
             BrowserUtils.clickWithJS(allItemsOnTheHomePage.get(index));
             Driver.getDriver().navigate().refresh();
 
             if(Driver.getDriver().getTitle().contains(itemHeader)){
-                System.out.println("Page verification is done. Item: "+Driver.getDriver().getTitle());
+                System.out.println("Page verification is done.");
             }else{
                 System.out.println("Page verification FAILED");
             }
@@ -60,6 +66,14 @@ public class HepsiBuradaPage {
             Driver.getDriver().navigate().back();
             Driver.getDriver().navigate().refresh();
 
+        }
+    }
+
+    public void verifyLastViewedItems(){
+        for (WebElement eachViewedItem : lastViewedItems) {
+            if(viewedItemsList.contains(eachViewedItem.getText())){
+                System.out.println("Last view item is seen at the cart recommendation list");
+            }
         }
     }
 
