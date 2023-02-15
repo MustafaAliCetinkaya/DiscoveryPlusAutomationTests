@@ -18,14 +18,14 @@ public class HepsiBuradaLoginAttemptWithExistingEmailAccount {
         //Navigate to the hepsiburada homepage
         Driver.getDriver().get(ConfigurationReader.getProperty("hepsiburada"));
 
-        //If it exists, accept all cookies
-
+/*        //If it exists, accept all cookies
         if( pageObject.acceptCookies.isDisplayed() ){
             pageObject.acceptCookies.click();
-        }
+        }*/
+
         Driver.getDriver().navigate().refresh();
     }
-    @Test
+    @Test(priority = 2)
     public void loginWithExistingAccountInfo(){
         //Verify the home page title
         BrowserUtils.verifyTitle("Türkiye'nin En Büyük Online Alışveriş Sitesi Hepsiburada.com");
@@ -52,5 +52,10 @@ public class HepsiBuradaLoginAttemptWithExistingEmailAccount {
         Assert.assertEquals(pageObject.errorMessage.getText(),"Bu e-posta adresine ait bir hesabınız olduğunu fark ettik.");
 
         Driver.closeDriver();
+    }
+
+    @Test(priority = 1)
+    public void verifyAllMainMenuLink() {
+        pageObject.mainMenuDropdownTest();
     }
 }

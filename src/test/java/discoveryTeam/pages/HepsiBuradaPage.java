@@ -1,6 +1,5 @@
 package discoveryTeam.pages;
 
-import discoveryTeam.utilities.BrowserUtils;
 import discoveryTeam.utilities.Driver;
 import discoveryTeam.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
@@ -14,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 public class HepsiBuradaPage {
-    public HepsiBuradaPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
+    public HepsiBuradaPage() {
+        PageFactory.initElements(Driver.getDriver(), this);
     }
 
     @FindBy(css = "button#onetrust-accept-btn-handler")
@@ -49,25 +48,30 @@ public class HepsiBuradaPage {
 
     @FindAll(@FindBy(css = "div[data-test-id=\"product-info-wrapper\"] h3"))
     public List<WebElement> allItemsOnTheHomePage;
+
+    @FindAll(@FindBy(css = "ul.sf-MenuItems-MXhuaBP08HFYcFicDzFl li span span"))
+    public List<WebElement> mainMenuLinks;
+    @FindAll(@FindBy(css = "li.sf-MenuItems-WulWXvlfIAwNiOUGY7FP"))
+    public List<WebElement> mainMenuHoverOverDropdowns;
     @FindAll(@FindBy(css = "div.sf-voltran-body.voltran-body.Recommendation_0 h3"))
     public List<WebElement> lastViewedItems;
 
-    List<String>viewedItemsList=new ArrayList<>();
+    List<String> viewedItemsList = new ArrayList<>();
 
-    public void navigateAnyItemWithGivenQuantity(int ItemQuantity){
-        Random random=new Random();
+    public void navigateAnyItemWithGivenQuantity(int ItemQuantity) {
+        Random random = new Random();
         for (int i = 0; i < ItemQuantity; i++) {
             ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())));
-            WebElement randomlySelectedItem=allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size()));
-            String itemHeader=randomlySelectedItem.getText();
+            WebElement randomlySelectedItem = allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size()));
+            String itemHeader = randomlySelectedItem.getText();
             ReusableMethods.jsScrollClick(randomlySelectedItem);
             viewedItemsList.add(Driver.getDriver().getTitle());
             Driver.getDriver().navigate().refresh();
 
-            if(Driver.getDriver().getTitle().contains(itemHeader)){
+            if (Driver.getDriver().getTitle().contains(itemHeader)) {
                 ReusableMethods.waitFor(1);
                 System.out.println("Page verification is done.");
-            }else{
+            } else {
                 System.out.println("Page verification FAILED");
             }
 
@@ -78,14 +82,22 @@ public class HepsiBuradaPage {
         }
     }
 
-    public void verifyLastViewedItems(){
-        System.out.println("All viewed items: "+viewedItemsList);
+    public void verifyLastViewedItems() {
+        System.out.println("All viewed items: " + viewedItemsList);
         for (WebElement eachViewedItem : lastViewedItems) {
-            if(viewedItemsList.contains(eachViewedItem.getText())){
-                System.out.println("Last view item is seen at the cart recommendation list: "+eachViewedItem.getText());
+            if (viewedItemsList.contains(eachViewedItem.getText())) {
+                System.out.println("Last view item is seen at the cart recommendation list: " + eachViewedItem.getText());
             }
             ReusableMethods.waitFor(2);
         }
+    }
+
+    public void mainMenuDropdownTest() {
+        for (int i = 0; i < mainMenuLinks.size(); i++) {
+            ReusableMethods.hover(mainMenuLinks.get(i));
+            Assert.assertEquals(mainMenuLinks.get(i).getText(),mainMenuHoverOverDropdowns.get(i).getText());
+        }
+
     }
 
 }

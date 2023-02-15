@@ -73,4 +73,8 @@ public class HepsiBuradaRegisterUserTestAutomation_UI {
 
         Driver.closeDriver();
     }
+/*    @Test(priority = 0)
+    public void verifyAllMainMenuLink() {
+        pageObject.mainMenuDropdownTest();
+    }*/
 }

@@ -11,22 +11,24 @@ import org.testng.annotations.Test;
 public class HepsiBuradaLoginWithValidAccount {
 
     HepsiBuradaPage pageObject;
+
     @BeforeMethod
-    public void setUp(){
-        pageObject=new HepsiBuradaPage();
+    public void setUp() {
+        pageObject = new HepsiBuradaPage();
 
         //Navigate to the hepsiburada homepage
         Driver.getDriver().get(ConfigurationReader.getProperty("hepsiburada"));
 
-        //If it exists, accept all cookies
-
-        if( pageObject.acceptCookies.isDisplayed() ){
+        /*//If it exists, accept all cookies
+        if (pageObject.acceptCookies.isDisplayed()) {
             pageObject.acceptCookies.click();
-        }
+        }*/
+
         Driver.getDriver().navigate().refresh();
     }
-    @Test(priority = 1)
-    public void loginWithExistingAccount(){
+
+    @Test
+    public void loginWithExistingAccount() {
         //Verify the home page title
         BrowserUtils.verifyTitle("Türkiye'nin En Büyük Online Alışveriş Sitesi Hepsiburada.com");
 
@@ -53,16 +55,16 @@ public class HepsiBuradaLoginWithValidAccount {
 
         //Verify username visibility and check the username text is true or not
         Assert.assertTrue(pageObject.usernameText.isDisplayed());
-        String expectedUsername="Hayu QA";
-        Assert.assertEquals(pageObject.usernameText.getText(),expectedUsername);
+        String expectedUsername = "Hayu QA";
+        Assert.assertEquals(pageObject.usernameText.getText(), expectedUsername);
         System.out.println("Username verification is passed");
 
         Driver.closeDriver();
 
     }
 
-    @Test(priority = 2)
-    public void verifyAllMainMenuLink(){
-
+    @Test
+    public void verifyAllMainMenuLink() {
+        pageObject.mainMenuDropdownTest();
     }
 }
