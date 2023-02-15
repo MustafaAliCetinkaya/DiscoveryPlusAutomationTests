@@ -49,7 +49,9 @@ public class HepsiBuradaLoginWithValidAccount {
 
         //Verify the error message ("Bu e-posta adresine ait bir hesabınız olduğunu fark ettik.")
         Assert.assertTrue(pageObject.errorMessage.isDisplayed());
+        System.out.println("Username is displayed");
         Assert.assertEquals(pageObject.errorMessage.getText(),"Bu e-posta adresine ait bir hesabınız olduğunu fark ettik.");
+        System.out.println("Username is valid");
 
         Driver.closeDriver();
     }
