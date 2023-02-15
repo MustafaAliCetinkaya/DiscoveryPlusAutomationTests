@@ -8,7 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class HepsiBuradaTestAutomation_UI {
+public class HepsiBuradaRegisterUserTestAutomation_UI {
     HepsiBuradaPage pageObject;
     @BeforeMethod
     public void setUp(){

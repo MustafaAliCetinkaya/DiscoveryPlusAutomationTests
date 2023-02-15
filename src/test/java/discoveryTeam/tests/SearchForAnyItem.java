@@ -6,7 +6,7 @@ import discoveryTeam.utilities.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class SearchForThreeItem {
+public class SearchForAnyItem {
 HepsiBuradaPage pageObject;
     @BeforeMethod
     public void setUp(){
