@@ -6,7 +6,7 @@ import discoveryTeam.utilities.Driver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class SearchForAnyItem {
+public class SearchForAnyItemAndVerifyThemInCartAsViewed {
 HepsiBuradaPage pageObject;
     @BeforeMethod
     public void setUp(){
