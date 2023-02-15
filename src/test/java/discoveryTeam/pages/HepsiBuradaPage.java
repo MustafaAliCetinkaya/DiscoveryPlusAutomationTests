@@ -48,12 +48,11 @@ public class HepsiBuradaPage {
 
     public void navigateAnyItemWithGivenQuantity(int ItemQuantity){
         Random random=new Random();
-        int index= random.nextInt(allItemsOnTheHomePage.size());
         for (int i = 0; i < ItemQuantity; i++) {
-            ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(index));
-            String itemHeader=allItemsOnTheHomePage.get(index).getText();
+            ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())));
+            String itemHeader=allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())).getText();
             viewedItemsList.add(itemHeader);
-            ReusableMethods.jsScrollClick(allItemsOnTheHomePage.get(index));
+            ReusableMethods.jsScrollClick(allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())));
             Driver.getDriver().navigate().refresh();
 
             if(Driver.getDriver().getTitle().contains(itemHeader)){
