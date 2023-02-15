@@ -50,23 +50,23 @@ public class HepsiBuradaPage {
         Random random=new Random();
         for (int i = 0; i < ItemQuantity; i++) {
             ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())));
-            String itemHeader=allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())).getText();
-            viewedItemsList.add(itemHeader);
-            ReusableMethods.jsScrollClick(allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size())));
+            WebElement randomlySelectedItem=allItemsOnTheHomePage.get(random.nextInt(allItemsOnTheHomePage.size()));
+            String itemHeader=randomlySelectedItem.getText();
+            ReusableMethods.jsScrollClick(randomlySelectedItem);
+            viewedItemsList.add(Driver.getDriver().getTitle());
             Driver.getDriver().navigate().refresh();
 
             if(Driver.getDriver().getTitle().contains(itemHeader)){
-                ReusableMethods.waitFor(2);
+                ReusableMethods.waitFor(1);
                 System.out.println("Page verification is done.");
             }else{
                 System.out.println("Page verification FAILED");
             }
-            Driver.getDriver().navigate().back();
-            Driver.getDriver().navigate().refresh();
+
             Driver.getDriver().navigate().back();
             Driver.getDriver().navigate().refresh();
 
-            ReusableMethods.waitFor(2);
+            ReusableMethods.waitFor(1);
         }
     }
 
@@ -76,6 +76,7 @@ public class HepsiBuradaPage {
             if(viewedItemsList.contains(eachViewedItem.getText())){
                 System.out.println("Last view item is seen at the cart recommendation list: "+eachViewedItem.getText());
             }
+            ReusableMethods.waitFor(2);
         }
     }
 
