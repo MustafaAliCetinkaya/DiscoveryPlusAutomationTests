@@ -25,7 +25,7 @@ public class HepsiBuradaLoginWithValidAccount {
         }
         Driver.getDriver().navigate().refresh();
     }
-    @Test
+    @Test(priority = 1)
     public void loginWithExistingAccount(){
         //Verify the home page title
         BrowserUtils.verifyTitle("Türkiye'nin En Büyük Online Alışveriş Sitesi Hepsiburada.com");
@@ -58,6 +58,11 @@ public class HepsiBuradaLoginWithValidAccount {
         System.out.println("Username verification is passed");
 
         Driver.closeDriver();
+
+    }
+
+    @Test(priority = 2)
+    public void verifyAllMainMenuLink(){
 
     }
 }
