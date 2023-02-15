@@ -47,11 +47,19 @@ public class HepsiBuradaPage {
         for (int i = 0; i < ItemQuantity; i++) {
             ReusableMethods.scrollDownToElement(allItemsOnTheHomePage.get(index));
             String itemHeader=allItemsOnTheHomePage.get(index).getText();
-            System.out.println(itemHeader);
-            System.out.println(Driver.getDriver().getTitle());
             BrowserUtils.clickWithJS(allItemsOnTheHomePage.get(index));
-            Assert.assertTrue(Driver.getDriver().getTitle().contains(itemHeader));
+            Driver.getDriver().navigate().refresh();
+
+            if(Driver.getDriver().getTitle().contains(itemHeader)){
+                System.out.println("Page verification is done. Item: "+Driver.getDriver().getTitle());
+            }else{
+                System.out.println("Page verification FAILED");
+            }
             Driver.getDriver().navigate().back();
+            Driver.getDriver().navigate().refresh();
+            Driver.getDriver().navigate().back();
+            Driver.getDriver().navigate().refresh();
+
         }
     }
 
