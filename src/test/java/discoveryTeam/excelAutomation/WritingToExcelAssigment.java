@@ -12,7 +12,7 @@ import java.io.IOException;
 public class WritingToExcelAssigment {
     @Test
     public void writingToExcelFile() throws IOException {
-        String path = "/Users/mustafacetinkaya/IdeaProjects/BasicNavigationTests/src/test/resources/Book2.xlsx"; //Java can open the Excel files but can not read. File do not has to be in the resource folder, it can read from directly computer as well.
+        String path = "src/test/resources/Book1.xlsx"; //Java can open the Excel files but can not read. File do not has to be in the resource folder, it can read from directly computer as well.
 
         FileInputStream fileInputStream = new FileInputStream(path);//For opening
 
