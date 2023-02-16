@@ -119,7 +119,7 @@ public class HepsiBuradaPage {
     public WebElement productPicture;
 
     public void searchForCarPhone() {
-        searchBox.sendKeys("iphone");
+        searchBox.sendKeys("iPhone 13");
         searchButton.click();
 
         String searchPageHandle=Driver.getDriver().getWindowHandle();
@@ -156,7 +156,9 @@ public class HepsiBuradaPage {
             Driver.getDriver().close();
         }
 
-        System.out.println(compareItemsWithAlgorithm);
+        for (Map.Entry<String, Integer> eachEntry : compareItemsWithAlgorithm.entrySet()) {
+            System.out.println(eachEntry.getKey()+" : "+eachEntry.getValue());
+        }
 
 
     }
