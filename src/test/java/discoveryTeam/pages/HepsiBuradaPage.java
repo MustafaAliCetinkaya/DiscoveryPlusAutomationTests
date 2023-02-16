@@ -1,6 +1,4 @@
 package discoveryTeam.pages;
-
-import discoveryTeam.utilities.BrowserUtils;
 import discoveryTeam.utilities.Driver;
 import discoveryTeam.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
@@ -9,10 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 public class HepsiBuradaPage {
     public HepsiBuradaPage() {
@@ -116,7 +111,7 @@ public class HepsiBuradaPage {
     public WebElement productName;
     @FindBy(css = ".rating-star")
     public WebElement eachItemPoint;
-    @FindBy(css = "div#comments-container a")
+    @FindBy(css = "div#comments-container a span")
     public WebElement eachCommentNumber;
     @FindBy(css = "div[data-test-id=\"price-current-price\"]")
     public List<WebElement> allPrices;
@@ -134,15 +129,27 @@ public class HepsiBuradaPage {
         }
 
         Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
+        Map<String,Integer>compareItemsWithAlgorithm=new HashMap<>();
         int count = 1;
-
         for (String each : allWindowHandles) {
             Driver.getDriver().switchTo().window(each);
             Driver.getDriver().navigate().refresh();
             if(!searchPageHandle.equalsIgnoreCase(Driver.getDriver().getWindowHandle())){
-                Assert.assertTrue(productPicture.isDisplayed());
-                System.out.println(productName.getText());
-                System.out.println(eachItemPoint.getText());
+                if(eachItemPoint.isDisplayed()){
+                    Assert.assertTrue(productPicture.isDisplayed());
+                    System.out.println("Name of the product: "+productName.getText());
+                    System.out.println("Star point: "+eachItemPoint.getText());
+                    System.out.println("Number of comments: "+eachCommentNumber.getText());
+                    System.out.println("* * *");
+                    Integer starPoint=(int) Float.parseFloat(eachItemPoint.getText().replace(',','.'));
+                    Integer commentNumber=Integer.parseInt(eachCommentNumber.getText());
+                    Integer algorithmPoint=starPoint*commentNumber;
+                    compareItemsWithAlgorithm.put(productName.getText(),algorithmPoint);
+                }else{
+                    System.out.println("This item has not star point. Therefore, it will be excluded from the list");
+                }
+
+
             }
 /*            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
                     count + ". link is: " + Driver.getDriver().getCurrentUrl());
@@ -151,6 +158,7 @@ public class HepsiBuradaPage {
             Driver.getDriver().close();
         }
 
+        System.out.println(compareItemsWithAlgorithm);
 
 
     }

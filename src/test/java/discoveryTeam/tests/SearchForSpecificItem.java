@@ -17,16 +17,16 @@ public class SearchForSpecificItem {
         Driver.getDriver().get(ConfigurationReader.getProperty("hepsiburada"));
 
         //If it exists, accept all cookies
-
         if (pageObject.acceptCookies.isDisplayed()) {
             pageObject.acceptCookies.click();
         }
+
         Driver.getDriver().navigate().refresh();
     }
 
     @Test
     public void searchItems() {
-        //Search for car phone holder
+        //Search for car phone holder. Get every item's comment number and client point. Determine a code fragment to compare them according to client comment' and points.
         pageObject.searchForCarPhone();
 
         //Driver.closeDriver();
