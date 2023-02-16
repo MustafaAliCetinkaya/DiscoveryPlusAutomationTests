@@ -11,9 +11,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class WriteExcel {
-
+/*Sheet == Page
+* Row == horizontal line
+* Cell == */
     @Test
-    public void readExcelFiles() throws IOException {
+    public void writeExcelFiles() throws IOException {
         String path = "/Users/mustafacetinkaya/IdeaProjects/BasicNavigationTests/src/test/resources/EU10-Group-7_Tracking Sheet_SAMPLE.xlsx"; //Java can open the Excel files but can not read. File do not has to be in the resource folder, it can read from directly computer as well.
 
         FileInputStream file = new FileInputStream(path);//For opening
@@ -38,6 +40,9 @@ public class WriteExcel {
             sheet.getRow(lastRow-5).getCell(i).setCellValue(i+"");   //First row's index is 0.
             excel.write(fileOutputStream);
         }
+
+        //Creating a new cell and writing data in it.
+        sheet.getRow(1).createCell(23).setCellValue("New Assignment");
 
         file.close();
         excel.close();
