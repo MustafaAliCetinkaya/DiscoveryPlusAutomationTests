@@ -135,7 +135,7 @@ public class HepsiBuradaPage {
             Driver.getDriver().switchTo().window(each);
             Driver.getDriver().navigate().refresh();
             if(!searchPageHandle.equalsIgnoreCase(Driver.getDriver().getWindowHandle())){
-                if(eachItemPoint.isDisplayed()){
+                if(eachItemPoint.isDisplayed()&&eachCommentNumber.isDisplayed()){
                     Assert.assertTrue(productPicture.isDisplayed());
                     System.out.println("Name of the product: "+productName.getText());
                     System.out.println("Star point: "+eachItemPoint.getText());
@@ -148,8 +148,6 @@ public class HepsiBuradaPage {
                 }else{
                     System.out.println("This item has not star point. Therefore, it will be excluded from the list");
                 }
-
-
             }
 /*            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
                     count + ". link is: " + Driver.getDriver().getCurrentUrl());
