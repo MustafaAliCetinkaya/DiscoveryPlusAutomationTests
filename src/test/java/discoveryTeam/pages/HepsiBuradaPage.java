@@ -139,10 +139,14 @@ public class HepsiBuradaPage {
         for (String each : allWindowHandles) {
             Driver.getDriver().switchTo().window(each);
             Driver.getDriver().navigate().refresh();
-            if(!searchPageHandle.equalsIgnoreCase(Driver.getDriver().getWindowHandle()))
-            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
+            if(!searchPageHandle.equalsIgnoreCase(Driver.getDriver().getWindowHandle())){
+                Assert.assertTrue(productPicture.isDisplayed());
+                System.out.println(productName.getText());
+                System.out.println(eachItemPoint.getText());
+            }
+/*            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
                     count + ". link is: " + Driver.getDriver().getCurrentUrl());
-            count++;
+            count++;*/
 
             Driver.getDriver().close();
         }
