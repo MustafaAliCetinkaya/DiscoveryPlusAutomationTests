@@ -31,7 +31,7 @@ public class WriteExcel {
 
         //Select cell (column) and row that will be written
         sheet.getRow(0).getCell(1).setCellValue("CYDEOTEAM");   //First row's index is 0.
-        excel.write(fileOutputStream);
+
 
         //Last row index
         int lastRow=sheet.getLastRowNum();
@@ -42,9 +42,21 @@ public class WriteExcel {
         }
 
         //Creating a new cell and writing data in it.
-        sheet.getRow(1).createCell(23).setCellValue("New Assignment");
+        sheet.getRow(1).getCell(23).setCellValue("New Assignment");
 
-        file.close();
+        sheet.getRow(1).getCell(24).setCellValue("Surname");
+        sheet.getRow(1).getCell(25).setCellValue("Batch Number");
+        sheet.getRow(1).getCell(26).setCellValue("Group");
+
+        //Writing row data
+        sheet.getRow(1).getCell(23).setCellValue("Hasan");
+        sheet.getRow(1).getCell(24).setCellValue("Hüseyin");
+        sheet.getRow(1).getCell(25).setCellValue("Ali");
+        sheet.getRow(1).getCell(26).setCellValue("Can");
+
+        excel.write(fileOutputStream);
         excel.close();
+        file.close();
+
     }
 }

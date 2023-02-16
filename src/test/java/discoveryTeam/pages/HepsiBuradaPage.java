@@ -1,5 +1,6 @@
 package discoveryTeam.pages;
 
+import discoveryTeam.utilities.BrowserUtils;
 import discoveryTeam.utilities.Driver;
 import discoveryTeam.utilities.ReusableMethods;
 import org.openqa.selenium.WebElement;
@@ -11,6 +12,7 @@ import org.testng.Assert;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 public class HepsiBuradaPage {
     public HepsiBuradaPage() {
@@ -95,8 +97,57 @@ public class HepsiBuradaPage {
     public void mainMenuDropdownTest() {
         for (int i = 0; i < mainMenuLinks.size(); i++) {
             ReusableMethods.hover(mainMenuLinks.get(i));
-            Assert.assertEquals(mainMenuLinks.get(i).getText(),mainMenuHoverOverDropdowns.get(i).getText());
+            Assert.assertEquals(mainMenuLinks.get(i).getText(), mainMenuHoverOverDropdowns.get(i).getText());
         }
+
+    }
+
+    @FindBy(xpath = "//li/a[contains(text(),'Araç İçi Telefon Tutucular ve Araç Şarj Cihazları')]")
+    public WebElement carPhoneHolder;
+    @FindBy(xpath = "//span/span[contains(text(),'Elektronik')]")
+    public WebElement mainPageElectronicDropdown;
+    @FindBy(xpath = "//li/a[contains(text(),'Telefon & Telefon Aksesuarları')]")
+    public WebElement dropdownTelephoneMenu;
+    @FindBy(xpath = "//div/div[contains(text(),'ARA')]")
+    public WebElement searchButton;
+    @FindBy(css = "div input.theme-IYtZzqYPto8PhOx3ku3c")
+    public WebElement searchBox;
+    @FindBy(css = "header h1#product-name")
+    public WebElement productName;
+    @FindBy(css = ".rating-star")
+    public WebElement eachItemPoint;
+    @FindBy(css = "div#comments-container a")
+    public WebElement eachCommentNumber;
+    @FindBy(css = "div[data-test-id=\"price-current-price\"]")
+    public List<WebElement> allPrices;
+    @FindBy(css = "picture img.product-image")
+    public WebElement productPicture;
+
+    public void searchForCarPhone() {
+        searchBox.sendKeys("iphone");
+        searchButton.click();
+
+        String searchPageHandle=Driver.getDriver().getWindowHandle();
+
+        for (WebElement element : allPrices) {
+            element.click();
+        }
+
+        Set<String> allWindowHandles = Driver.getDriver().getWindowHandles();
+        int count = 1;
+
+        for (String each : allWindowHandles) {
+            Driver.getDriver().switchTo().window(each);
+            Driver.getDriver().navigate().refresh();
+            if(!searchPageHandle.equalsIgnoreCase(Driver.getDriver().getWindowHandle()))
+            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
+                    count + ". link is: " + Driver.getDriver().getCurrentUrl());
+            count++;
+
+            Driver.getDriver().close();
+        }
+
+
 
     }
 
