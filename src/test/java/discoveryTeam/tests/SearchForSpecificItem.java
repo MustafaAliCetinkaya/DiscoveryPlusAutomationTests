@@ -3,6 +3,7 @@ package discoveryTeam.tests;
 import discoveryTeam.pages.HepsiBuradaPage;
 import discoveryTeam.utilities.ConfigurationReader;
 import discoveryTeam.utilities.Driver;
+import discoveryTeam.utilities.ReusableMethods;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -15,12 +16,13 @@ public class SearchForSpecificItem {
 
         //Navigate to the hepsiburada homepage
         Driver.getDriver().get(ConfigurationReader.getProperty("hepsiburada"));
-
-        //If it exists, accept all cookies
-        if (pageObject.acceptCookies.isDisplayed()) {
+        try {
+            //If it exists, accept all cookies
+            pageObject.acceptCookies.click();
+        } catch (Exception e){
+            ReusableMethods.waitFor(4);
             pageObject.acceptCookies.click();
         }
-
         Driver.getDriver().navigate().refresh();
     }
 
