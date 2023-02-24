@@ -167,7 +167,6 @@ public class HepsiBuradaPage {
             System.out.println(eachEntry.getKey() + " : " + eachEntry.getValue());
         }
 
-
     }
 
 }
