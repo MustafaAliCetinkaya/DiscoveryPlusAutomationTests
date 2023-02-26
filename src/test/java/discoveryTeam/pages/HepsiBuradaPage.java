@@ -153,7 +153,9 @@ public class HepsiBuradaPage {
                 }
 /*            System.out.println(count + ". page title is : " + Driver.getDriver().getTitle() + "\n" +
                     count + ". link is: " + Driver.getDriver().getCurrentUrl());
-            count++;*/
+            count++;
+
+            */
 
             } catch (Exception exception) {
                 exception.getMessage();
